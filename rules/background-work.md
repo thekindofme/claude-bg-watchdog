@@ -1,0 +1,10 @@
+# Background work discipline
+
+From 21-day transcript audit (2026-07-24): 102 foreground Bash timeouts (~6.2h blocked, 48% hand-rolled sleep-loops, 73% on the bare default timeout); 18% of background-task failures were subagents dying on usage limits and stalling the session until manually resumed; repeated silent poller deaths. Watchdog hooks (`~/.claude/hooks/bg-watchdog-*.sh`) enforce some of this; the rest is on you.
+
+- **Never foreground-wait on async work.** No `while/until/for … sleep` polls in foreground Bash for builds, deploys, Step Functions, generation jobs, or subagent output files. Use `run_in_background: true` (single completion notification) or the Monitor tool (streaming; `persistent: true` for session-length watches). A PreToolUse hook blocks loops with `sleep ≥15s`.
+- **Size foreground timeouts explicitly.** Known-long commands (CloudWatch multi-group scans, cdk/sls, big builds, chrome --headless) get an explicit `timeout` sized to the job. After a timeout with **zero output**, treat it as a hang: kill the process; do not simply re-run with a longer timeout.
+- **No fire-and-forget pollers.** Every background poller/waiter needs a supervision path. Monitor filters must match FAILURE states too (`failed|canceled|timeout|Killed` — silence is not success). When a Monitor times out ("re-arm if needed"), actually re-arm or replace it — never ignore.
+- **Buildkite waits: follow the branch, not a build number.** A polled build canceled because a newer commit superseded it is progress, not failure — switch to the successor build (or query PR/branch state via the Buildkite MCP).
+- **Dev gateway startup exit 126** = volta/Node-20 interpreter mismatch. Fix the interpreter (see memory: worktree local-stack gotchas); retrying the identical command always fails.
+- **When a subagent dies (session limit / 529 / API error): resume, don't restart.** `SendMessage` to the same agent name resumes it with its context intact. Deaths are logged to `~/.claude/logs/subagent-deaths.jsonl`. A Stop-hook watchdog auto-wakes the session after the limit window passes — on such a wake, check that ledger + TaskList and resume the dead agents first.
