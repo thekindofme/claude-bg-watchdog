@@ -1,0 +1,13 @@
+{
+  "session_id": "d387054e-5f4a-4162-a360-7012427e42a6",
+  "transcript_path": "/Users/dev/.claude/projects/-Users-dev-code-acme/d387054e-5f4a-4162-a360-7012427e42a6.jsonl",
+  "cwd": "/Users/dev/code/acme",
+  "hook_event_name": "PreToolUse",
+  "tool_name": "Monitor",
+  "tool_input": {
+    "command": "tail -f /tmp/build.log | grep -E --line-buffered 'BUILD OK|FAILED'",
+    "description": "build log for success or failure",
+    "timeout_ms": 300000,
+    "persistent": false
+  }
+}

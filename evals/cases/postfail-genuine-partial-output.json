@@ -1,0 +1,29 @@
+{
+  "id": "postfail-genuine-partial-output",
+  "hook": "postfail",
+  "category": "genuine-timeout",
+  "schema": "real",
+  "input": {
+    "session_id": "5de96caa-b721-4183-823e-b2d0716da287",
+    "transcript_path": "/Users/dev/.claude/projects/-Users-dev-code-acme/5de96caa-b721-4183-823e-b2d0716da287.jsonl",
+    "cwd": "/Users/dev/code/acme",
+    "hook_event_name": "PostToolUseFailure",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "set -a; . ~/.secrets; set +a; for i in $(seq 1 25); do out=$(curl -s -H \"Authorization: Bearer $BUILDKITE_ACCESS_TOKEN\" \"https://api.buildkite.com/v2/organizations/acme/pipelines/frontend/builds?branch=main&per_page=1\" | python3 -c \"import json,sys; b=json.load(sys.stdin)[0]; print(b['number'], b['state'], b['commit'][:8])\"); echo \"poll $i: $out\"; case \"$out\" in *240868c0*passed*|*240868c0*failed*|*240868c0*blocked*) break;; esac; sleep 30; done",
+      "description": "Poll buildkite frontend build for commit 240868c0"
+    },
+    "error": "Exit code 143\nCommand timed out after 10m 0s\npoll 1: 17110 running 240868c0\npoll 2: 17110 running 240868c0\n... (19 total poll lines) ...",
+    "interrupted": true,
+    "is_error": true
+  },
+  "expect": {
+    "fires": true,
+    "output_contains": [
+      "additionalContext",
+      "run_in_background",
+      "Monitor"
+    ]
+  },
+  "provenance": "~/.claude/projects/-Users-dev-code-acme/5de96caa-b721-4183-823e-b2d0716da287.jsonl ~line 1388 (2026-07-20): a 25x sleep-30 foreground poll for a Buildkite build hit the 10m timeout with 19 partial poll lines printed. Predates the pretool hook (2026-07-24); this is the exact motivating case for both pretool AND postfail."
+}

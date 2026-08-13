@@ -1,0 +1,14 @@
+{
+  "session_id": "d387054e-5f4a-4162-a360-7012427e42a6",
+  "cwd": "/Users/dev/code/acme",
+  "hook_event_name": "PreToolUse",
+  "agent_id": "ae2e-verify-f3ba2159f19da324",
+  "agent_type": "e2e-verify",
+  "tool_name": "Monitor",
+  "tool_input": {
+    "command": "tail -f /tmp/deploy.log | grep --line-buffered -E 'deployed|error'",
+    "description": "deploy outcome",
+    "timeout_ms": 600000,
+    "persistent": false
+  }
+}

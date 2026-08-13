@@ -1,0 +1,5 @@
+{"type":"user","timestamp":"@@T-900@@","sessionId":"cccccccc-0000-4000-8000-000000000001","isSidechain":false,"message":{"role":"user","content":"where does the dispatcher release the slug lock?"}}
+{"type":"assistant","timestamp":"@@T-880@@","sessionId":"cccccccc-0000-4000-8000-000000000001","isSidechain":false,"message":{"role":"assistant","content":[{"type":"tool_use","name":"Grep","id":"toolu_01GrepSlugLockAAAAAAAAAA","input":{"pattern":"releaseSlot","path":"src"}}]}}
+{"type":"user","timestamp":"@@T-875@@","sessionId":"cccccccc-0000-4000-8000-000000000001","isSidechain":false,"message":{"role":"user","content":[{"type":"tool_result","tool_use_id":"toolu_01GrepSlugLockAAAAAAAAAA","content":"src/daemon.ts:1798"}]}}
+{"type":"assistant","timestamp":"@@T-860@@","sessionId":"cccccccc-0000-4000-8000-000000000001","isSidechain":false,"message":{"role":"assistant","content":[{"type":"text","text":"`finalizeExit` releases it at src/daemon.ts:1798, after the deferral budget is exhausted."}]}}
+{"type":"file-history-snapshot","messageId":"m1","snapshot":{}}

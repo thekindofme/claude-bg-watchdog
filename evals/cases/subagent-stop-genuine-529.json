@@ -1,0 +1,23 @@
+{
+  "id": "subagent-stop-genuine-529",
+  "hook": "subagent-stop",
+  "category": "genuine-death",
+  "schema": "real",
+  "input": {
+    "session_id": "d387054e-5f4a-4162-a360-7012427e42a6",
+    "transcript_path": "/Users/dev/.claude/projects/-Users-dev-code-acme/d387054e-5f4a-4162-a360-7012427e42a6/subagents/agent-aexample-crash.jsonl",
+    "cwd": "/Users/dev/code/acme",
+    "hook_event_name": "SubagentStop",
+    "agent_id": "aexample-crash",
+    "agent_type": "general-purpose",
+    "last_assistant_message": "Agent failed: API Error: 529 Overloaded"
+  },
+  "expect": {
+    "fires": true,
+    "output_contains": [
+      "systemMessage",
+      "subagent-deaths.jsonl"
+    ]
+  },
+  "provenance": "~/.claude/logs/subagent-deaths.jsonl entry 0, ts=2026-07-24T04:15:07Z, tail='Agent failed: API Error: 529 Overloaded'. This exact system-generated crash string ('Agent failed: API Error: 529 Overloaded') recurs verbatim across 10+ sessions in ~/.claude/projects (grep hit count) — it's the SDK's own synthetic message when a subagent dies mid-call, not model prose, so it is short and complete (schema:reconstructed only in the sense that agent_id/transcript_path are a representative placeholder standing in for one of the many real occurrences; the message text itself is exact and real)."
+}

@@ -4,10 +4,85 @@
     "BASH_MAX_TIMEOUT_MS": "1800000"
   },
   "hooks": {
-    "PreToolUse": null,
-    "PostToolUse": null,
-    "PostToolUseFailure": null,
-    "SubagentStop": null,
-    "Stop": null
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/bg-watchdog-pretool.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Monitor",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/bg-watchdog-monitor-guard.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/bg-watchdog-postfail.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/bg-watchdog-postfail.sh"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/bg-watchdog-subagent-stop.sh"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/bg-watchdog-rewake.sh",
+            "timeout": 25200,
+            "async": true,
+            "asyncRewake": true,
+            "rewakeMessage": "Usage-limit/overload window has likely passed. Check ~/.claude/logs/subagent-deaths.jsonl and TaskList for subagents or background tasks that died with 'session limit' / 529 errors, and resume them (SendMessage to the same agent name resumes with context).",
+            "rewakeSummary": "limit-reset watchdog: resume dead agents"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/bg-watchdog-orphan-sentinel.sh",
+            "timeout": 25200,
+            "async": true,
+            "asyncRewake": true,
+            "rewakeMessage": "Un-actioned async failure detected by the orphan sentinel. Check the named task in ~/.claude/logs/orphan-sentinel-state.jsonl, TaskList, and BashOutput; re-arm or diagnose it, then report to the user.",
+            "rewakeSummary": "orphan sentinel: un-actioned async failure"
+          }
+        ]
+      }
+    ]
   }
 }

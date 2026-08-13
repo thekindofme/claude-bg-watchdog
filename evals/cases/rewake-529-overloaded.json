@@ -1,0 +1,17 @@
+{
+  "id": "rewake-529-overloaded",
+  "hook": "rewake",
+  "category": "genuine-timeout",
+  "schema": "real",
+  "input": {
+    "session_id": "a8129147-a2a2-4a12-926d-acd615c4731e",
+    "transcript_path": "/Users/dev/.claude/projects/-Users-dev-code-acme/a8129147-a2a2-4a12-926d-acd615c4731e.jsonl",
+    "cwd": "/Users/dev/code/acme",
+    "hook_event_name": "Stop",
+    "last_assistant_message": "API Error: 529 Overloaded"
+  },
+  "expect": {
+    "fires": true
+  },
+  "provenance": "Exact system-generated crash string (see subagent-stop-genuine-529), independently confirmed in 10+ real transcripts. Deterministic flat 180s wait on every hook version — no time parsing involved, no wall-clock dependency."
+}

@@ -1,0 +1,16 @@
+{
+  "session_id": "70127369-8aff-4d1d-b387-151615e7593c",
+  "transcript_path": "/tmp/parent.jsonl",
+  "cwd": "/Users/dev/code/acme",
+  "permission_mode": "default",
+  "tool_use_id": "toolu_01LdHAz5yn5sa3eDpxXeGmjb",
+  "hook_event_name": "PostToolUseFailure",
+  "tool_name": "Bash",
+  "tool_input": {
+    "command": "git checkout -b x && cp -r skills/ ~/.claude/plugins/",
+    "description": "branch and copy"
+  },
+  "error": "Exit code 143\nCommand timed out after 5m 0s\nbranch created\noverwrite /Users/dev/.claude/plugins/marketplaces/acme/acme-dev/skills/acme-cdn-publish/SKILL.md? (y/n [n])",
+  "is_interrupt": false,
+  "duration_ms": 300004
+}

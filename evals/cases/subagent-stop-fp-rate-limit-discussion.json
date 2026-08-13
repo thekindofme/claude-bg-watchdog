@@ -1,0 +1,19 @@
+{
+  "id": "subagent-stop-fp-rate-limit-discussion",
+  "hook": "subagent-stop",
+  "category": "quoted-error-text",
+  "schema": "real",
+  "input": {
+    "session_id": "dabfb380-eb34-47c4-8ba8-44112fd8afbc",
+    "transcript_path": "/Users/dev/.claude/projects/-Users-dev-code-acme/dabfb380-eb34-47c4-8ba8-44112fd8afbc/subagents/agent-af5685868b8b6119f.jsonl",
+    "cwd": "/Users/dev/code/acme",
+    "hook_event_name": "SubagentStop",
+    "agent_id": "af5685868b8b6119f",
+    "agent_type": "general-purpose",
+    "last_assistant_message": "l — so the authors did not rule out this specific collision. On plausibility of real CLI behavior: it's a known Claude Code CLI UX pattern for usage/session-limit-exhausted messages to suggest running `/login` to switch accounts or re-authenticate as a workaround, which is exactly the kind of advisory text that could land inside a legitimate session-limit log line without the host's login actually being dead — this is a realistic, unguarded edge case on an unanchored substring rather than a certainty, so PLAUSIBLE rather than CONFIRMED is the correct call per the stated recall-biased standard."
+  },
+  "expect": {
+    "fires": false
+  },
+  "provenance": "~/.claude/logs/subagent-deaths.jsonl ts=2026-08-11T02:30:25Z (tail matches) + full text recovered from ~/.claude/projects/-Users-dev-code-acme/dabfb380-eb34-47c4-8ba8-44112fd8afbc/subagents/agent-af5685868b8b6119f.jsonl (agent_id matches ledger row), last assistant message 2026-08-11T02:30:25.347Z, 1663 chars. The agent completed its analysis normally; the phrase 'a rate-limit string' at offset ~945 (discussing a hypothetical log line, hyphenated form) is what trips the hook's `rate.?limit` alternative — this was ALREADY logged as a false positive by the shipped hook (see subagent-deaths.jsonl), so this case reproduces a confirmed incident, not a hypothetical."
+}

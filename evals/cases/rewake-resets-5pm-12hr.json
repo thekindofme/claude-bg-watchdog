@@ -1,0 +1,18 @@
+{
+  "id": "rewake-resets-5pm-12hr",
+  "hook": "rewake",
+  "category": "genuine-timeout",
+  "schema": "real",
+  "input": {
+    "session_id": "a8129147-a2a2-4a12-926d-acd615c4731e",
+    "transcript_path": "/Users/dev/.claude/projects/-Users-dev-code-acme/a8129147-a2a2-4a12-926d-acd615c4731e.jsonl",
+    "cwd": "/Users/dev/code/acme",
+    "hook_event_name": "Stop",
+    "last_assistant_message": "You've hit your session limit · resets 5pm (Australia/Melbourne)"
+  },
+  "expect": {
+    "fires": true
+  },
+  "note": "numeric check is done against a Python reference model (runner.py's reference_sleep_secs), pinned to the same BG_WATCHDOG_NOW the runner sets, tolerance 15s — not a fixed literal.",
+  "provenance": "Exact system-generated string \"You've hit your session limit · resets 5pm (Australia/Melbourne)\" found verbatim in 4 real session transcripts (same string used for subagent-stop-genuine-session-limit). Canonical rank-1 failure mode from the README's own audit; also matches hooks/bg-watchdog-rewake.sh's anchored classify(), which requires the message to literally START with this phrase (2026-08-12 rewrite tightened this from an unanchored 'session limit' substring match)."
+}

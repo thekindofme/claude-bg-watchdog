@@ -1,0 +1,19 @@
+{
+  "id": "subagent-stop-fp-adjacent-subject",
+  "hook": "subagent-stop",
+  "category": "quoted-error-text",
+  "schema": "real",
+  "input": {
+    "session_id": "fb08e956-8aab-4cb1-a878-4fe227fa246b",
+    "transcript_path": "/Users/dev/.claude/projects/-Users-dev-code-acme/fb08e956-8aab-4cb1-a878-4fe227fa246b/subagents/agent-ausage-scan-e95dcab220603097.jsonl",
+    "cwd": "/Users/dev/code/acme",
+    "hook_event_name": "SubagentStop",
+    "agent_id": "ausage-scan-e95dcab220603097",
+    "agent_type": "general-purpose",
+    "last_assistant_message": "Improving omni product-video fidelity to beat seedance: shipped first-frame pipeline, ran comprehensive evals; fresh side-by-side judging shows seedance still clearly ahead, judges hit session limit at 98/112 pairs. Next: run finisher judging after 21:50 reset."
+  },
+  "expect": {
+    "fires": false
+  },
+  "provenance": "~/.claude/logs/subagent-deaths.jsonl ts=2026-07-24T09:04:58Z (tail, 265 chars — under the 300-char truncation limit, so this is very likely the complete message). The AGENT completed and reported results normally; 'judges hit session limit' describes a DIFFERENT process (an eval-judging sub-run) hitting a limit, not the reporting agent itself dying. Literal 'session limit' substring (space-separated) still trips the hook."
+}

@@ -1,0 +1,24 @@
+{
+  "id": "orphan-sentinel-handled-notification",
+  "hook": "orphan-sentinel",
+  "category": "unhandled-notification",
+  "schema": "real",
+  "env": {
+    "ORPHAN_SENTINEL_DRY_RUN": "1",
+    "ORPHAN_SENTINEL_WINDOW": "999999999",
+    "ORPHAN_SENTINEL_INFLIGHT_WINDOW": "999999999",
+    "ORPHAN_SENTINEL_MIN_AGE": "1",
+    "ORPHAN_SENTINEL_MAX_SLEEP": "0",
+    "ORPHAN_SENTINEL_VIGIL_POLL": "1",
+    "ORPHAN_SENTINEL_VIGIL_MAX": "2"
+  },
+  "input": {
+    "session_id": "dabfb380-eb34-47c4-8ba8-44112fd8afbc",
+    "transcript_path": "/Users/dev/code/claude-bg-watchdog/evals/fixtures/dabfb380-handled-notification.jsonl",
+    "hook_event_name": "Stop"
+  },
+  "expect": {
+    "fires": false
+  },
+  "provenance": "evals/fixtures/dabfb380-handled-notification.jsonl is a byte-exact truncation (first 1073 lines) of the same real transcript, cut right after the assistant's Agent-spawn reaction at 2026-08-11T06:29:27.023Z. It contains the completed-task notification at 06:27:56Z (task_id ab79367ab7dc5a62d, '/code-review the full branch diff… finished') AND the assistant's own reaction 46s later at 06:28:42, so by this Stop both that notification and the earlier 05:08:32 stall have real subsequent assistant activity — exactly what should read as handled and produce no rewake."
+}

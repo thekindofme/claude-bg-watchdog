@@ -1,0 +1,17 @@
+{
+  "id": "rewake-clean-no-death",
+  "hook": "rewake",
+  "category": "clean-completion",
+  "schema": "real",
+  "input": {
+    "session_id": "a8129147-a2a2-4a12-926d-acd615c4731e",
+    "transcript_path": "/Users/dev/.claude/projects/-Users-dev-code-acme/a8129147-a2a2-4a12-926d-acd615c4731e.jsonl",
+    "cwd": "/Users/dev/code/acme",
+    "hook_event_name": "Stop",
+    "last_assistant_message": "Done. PR opened."
+  },
+  "expect": {
+    "fires": false
+  },
+  "provenance": "Same hand-validation session, ~line 196: confirmed exit=0, no WOULD_SLEEP line — an ordinary clean Stop must never trigger a rewake sleep."
+}

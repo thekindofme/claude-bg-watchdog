@@ -1,0 +1,17 @@
+{
+  "id": "rewake-session-limit-no-time",
+  "hook": "rewake",
+  "category": "genuine-timeout",
+  "schema": "reconstructed",
+  "input": {
+    "session_id": "a8129147-a2a2-4a12-926d-acd615c4731e",
+    "transcript_path": "/Users/dev/.claude/projects/-Users-dev-code-acme/a8129147-a2a2-4a12-926d-acd615c4731e.jsonl",
+    "cwd": "/Users/dev/code/acme",
+    "hook_event_name": "Stop",
+    "last_assistant_message": "You've hit your session limit."
+  },
+  "expect": {
+    "fires": true
+  },
+  "provenance": "Canonical prefix real; the bare no-time ending is reconstructed (real occurrences always carry a reset clause) specifically to test the no-parseable-time fallback path in isolation. Deterministic: no reset time to parse -> flat 3600s (1h) fallback on every hook version. Note this message would NOT have fired on the old baseline hook's unanchored substring match differently than the new anchored classify() — both recognize 'session limit' as a death here, so this specific case is version-agnostic unlike the 1700/45-minutes gap cases above."
+}

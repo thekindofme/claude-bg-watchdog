@@ -1,0 +1,13 @@
+{
+  "session_id": "70127369-8aff-4d1d-b387-151615e7593c",
+  "transcript_path": "/tmp/parent.jsonl",
+  "cwd": "/Users/dev/code/acme",
+  "permission_mode": "default",
+  "hook_event_name": "PreToolUse",
+  "tool_name": "Bash",
+  "tool_input": {
+    "command": "while ! curl -sf https://dev.app.example.com/health; do sleep 15s; done",
+    "description": "x",
+    "run_in_background": false
+  }
+}

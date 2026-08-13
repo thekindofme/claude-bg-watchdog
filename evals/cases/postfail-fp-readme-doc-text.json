@@ -1,0 +1,27 @@
+{
+  "id": "postfail-fp-readme-doc-text",
+  "hook": "postfail",
+  "category": "false-positive-substring",
+  "schema": "real",
+  "input": {
+    "session_id": "d387054e-5f4a-4162-a360-7012427e42a6",
+    "transcript_path": "/Users/dev/.claude/projects/-Users-dev-code-acme/d387054e-5f4a-4162-a360-7012427e42a6.jsonl",
+    "cwd": "/Users/dev/code/claude-bg-watchdog",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "tail -20 README.md",
+      "description": "check success criteria section"
+    },
+    "tool_response": {
+      "stdout": "## Success criteria (re-audit in ~3 weeks)\n\n1. \"Command timed out after 2m 0s\" events ≈ 0 (default now 5m; loops blocked).\n2. Session-limit deaths auto-resume — no more manual \"cont\" (grep transcripts\n   for the rewakeSummary \"limit-reset watchdog\").\n3. `subagent-deaths.jsonl` entries correlate with prompt resumes, not\n   hours-later discoveries.\n4. Foreground-blocked time from timeouts well under the 6.2h baseline.\n   Re-run: `analysis/scripts/extract2.py` (timeouts), `analyze.py` (failures),\n   `orphan_analysis.py` (orphans).",
+      "stderr": "",
+      "interrupted": false,
+      "is_error": false
+    }
+  },
+  "expect": {
+    "fires": false
+  },
+  "provenance": "~/code/claude-bg-watchdog/README.md, 'Success criteria' section (verbatim, as written 2026-07-24): reading the repo's own doc back with tail/cat/head puts the literal string 'Command timed out after 2m 0s' in a real, non-error Bash stdout."
+}

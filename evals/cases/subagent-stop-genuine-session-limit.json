@@ -1,0 +1,23 @@
+{
+  "id": "subagent-stop-genuine-session-limit",
+  "hook": "subagent-stop",
+  "category": "genuine-death",
+  "schema": "real",
+  "input": {
+    "session_id": "f638d841-8606-44c3-9c91-787c2fb3f68f",
+    "transcript_path": "/Users/dev/.claude/projects/-Users-dev-code-acme/f638d841-8606-44c3-9c91-787c2fb3f68f/subagents/agent-aexample-limit.jsonl",
+    "cwd": "/Users/dev/code/acme",
+    "hook_event_name": "SubagentStop",
+    "agent_id": "aexample-limit",
+    "agent_type": "general-purpose",
+    "last_assistant_message": "You've hit your session limit · resets 5pm (Australia/Melbourne)"
+  },
+  "expect": {
+    "fires": true,
+    "output_contains": [
+      "systemMessage",
+      "subagent-deaths.jsonl"
+    ]
+  },
+  "provenance": "Exact system-generated string \"You've hit your session limit · resets 5pm (Australia/Melbourne)\" found verbatim in 4 real session transcripts incl. ~/.claude/projects/-Users-dev-code-acme/f638d841-8606-44c3-9c91-787c2fb3f68f.jsonl. The canonical rank-1 failure mode from the README's own audit."
+}

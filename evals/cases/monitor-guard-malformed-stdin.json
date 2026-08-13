@@ -1,0 +1,15 @@
+{
+  "id": "monitor-guard-malformed-stdin",
+  "hook": "monitor-guard",
+  "category": "toplevel-or-dormant-arm",
+  "schema": "reconstructed",
+  "env": {
+    "BG_WATCHDOG_MONITOR_GUARD": "1"
+  },
+  "input": {},
+  "raw_input": "not json at all",
+  "expect": {
+    "fires": false
+  },
+  "provenance": "hooks/bg-watchdog-monitor-guard.sh's own tests/monitor-guard.test.sh asserts 'malformed stdin fails open' (its 9th and last unit test, confirmed green: `bash tests/monitor-guard.test.sh` -> 9 passed). Replayed here as a robustness case even with the guard enabled: a truncated or non-JSON hook payload must never wedge a session by denying a tool call it couldn't parse. Uses 'raw_input' (literal stdin bytes) instead of 'input' (JSON-serialized) since the whole point is that stdin ISN'T valid JSON."
+}

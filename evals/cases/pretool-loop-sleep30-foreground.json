@@ -1,0 +1,25 @@
+{
+  "id": "pretool-loop-sleep30-foreground",
+  "hook": "pretool",
+  "category": "loop-evasion",
+  "schema": "real",
+  "input": {
+    "session_id": "5de96caa-b721-4183-823e-b2d0716da287",
+    "transcript_path": "/Users/dev/.claude/projects/-Users-dev-code-acme/5de96caa-b721-4183-823e-b2d0716da287.jsonl",
+    "cwd": "/Users/dev/code/acme",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "set -a; . ~/.secrets; set +a; for i in $(seq 1 25); do out=$(curl -s -H \"Authorization: Bearer $BUILDKITE_ACCESS_TOKEN\" \"https://api.buildkite.com/v2/organizations/acme/pipelines/frontend/builds?branch=main&per_page=1\" | python3 -c \"import json,sys; b=json.load(sys.stdin)[0]; print(b['number'], b['state'], b['commit'][:8])\"); echo \"poll $i: $out\"; case \"$out\" in *240868c0*passed*|*240868c0*failed*|*240868c0*blocked*) break;; esac; sleep 30; done",
+      "description": "Poll buildkite frontend build for commit 240868c0"
+    }
+  },
+  "expect": {
+    "fires": true,
+    "output_contains": [
+      "run_in_background",
+      "Monitor"
+    ]
+  },
+  "provenance": "Same command as postfail-genuine-partial-output, replayed as the PreToolUse call that should have been blocked before it ran (it predates the 2026-07-24 pretool hook). sleep 30 clears the threshold, so this looked like a clean catch-both case at first — but running it exposed a SEPARATE, more important bug found while building this eval: the loop-keyword bracket class `[;&|(\\s]` does not mean 'preceded by whitespace' under real POSIX grep (confirmed on both /usr/bin/grep, BSD grep 2.6.0-FreeBSD, and by inspection GNU grep -E behaves the same — `\\s` is only a whitespace shorthand under PCRE / grep -P, not inside an ERE bracket expression). It only matches if while/until/for sits at the very start of the command string or is directly adjacent (no space) to `;`, `&`, `|`, or `(`. This command has 'set +a; for i in ...' — a space between `;` and `for` — so the OLD hook misses it for a reason that has nothing to do with the sleep threshold. Minimal repro: printf '; for x in 1; do :; done' | grep -qE '(^|[;&|(\\s])(while|until|for)[[:space:]]' → NOMATCH; a newline before 'for' (the common multi-line-script shape) also NOMATCH. Flagged to wp1-hooks-v2 directly since it's load-bearing for their rewrite."
+}

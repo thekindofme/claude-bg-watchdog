@@ -1,0 +1,27 @@
+{
+  "id": "orphan-sentinel-unhandled-stall",
+  "hook": "orphan-sentinel",
+  "category": "unhandled-notification",
+  "schema": "real",
+  "env": {
+    "ORPHAN_SENTINEL_DRY_RUN": "1",
+    "ORPHAN_SENTINEL_WINDOW": "999999999",
+    "ORPHAN_SENTINEL_INFLIGHT_WINDOW": "999999999",
+    "ORPHAN_SENTINEL_MIN_AGE": "1",
+    "ORPHAN_SENTINEL_MAX_SLEEP": "0",
+    "ORPHAN_SENTINEL_VIGIL_POLL": "1",
+    "ORPHAN_SENTINEL_VIGIL_MAX": "2"
+  },
+  "input": {
+    "session_id": "dabfb380-eb34-47c4-8ba8-44112fd8afbc",
+    "transcript_path": "/Users/dev/code/claude-bg-watchdog/evals/fixtures/dabfb380-unhandled-stall.jsonl",
+    "hook_event_name": "Stop"
+  },
+  "expect": {
+    "fires": true,
+    "output_contains": [
+      "rewake"
+    ]
+  },
+  "provenance": "evals/fixtures/dabfb380-unhandled-stall.jsonl is a byte-exact truncation (first 986 lines) of the real ~/.claude/projects/-Users-dev-code-acme/dabfb380-eb34-47c4-8ba8-44112fd8afbc.jsonl, cut immediately after the queue-operation enqueue at 2026-08-11T05:08:32.202Z: 'Agent \"Verify clock/parse close-gate issues\" failed: Agent stalled: no progress for 600s (stream watchdog did not recover)', task_id ac58a3ed073761ef3. No assistant activity follows in the real transcript until the user typed 'status' 32 minutes later at 05:40:52 — this is literally one of the two incidents hooks/bg-watchdog-orphan-sentinel.sh's own header cites as its motivating case ('08-11 dabfb380: \"Agent stalled: no progress for 600s\"'), so it's also the exact scenario the hook's lane-3 vigil path was purpose-built to cover."
+}
