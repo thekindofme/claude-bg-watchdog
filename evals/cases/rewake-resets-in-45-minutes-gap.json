@@ -1,0 +1,17 @@
+{
+  "id": "rewake-resets-in-45-minutes-gap",
+  "hook": "rewake",
+  "category": "genuine-timeout",
+  "schema": "reconstructed",
+  "input": {
+    "session_id": "d387054e-5f4a-4162-a360-7012427e42a6",
+    "transcript_path": "/Users/dev/.claude/projects/-Users-dev-code-acme/d387054e-5f4a-4162-a360-7012427e42a6.jsonl",
+    "cwd": "/Users/dev/code/acme",
+    "hook_event_name": "Stop",
+    "last_assistant_message": "You've hit your session limit, resets in 45 minutes"
+  },
+  "expect": {
+    "fires": true
+  },
+  "provenance": "Canonical prefix real (see rewake-resets-5pm-12hr); relative-time phrasing ('resets in 45 minutes') not observed verbatim in the mined window, reconstructed per the team-lead brief. Same version-dependent gap as rewake-resets-1700-24hr-gap: the current hook added explicit relative-time parsing ('in N minutes/hours'); the pre-2026-08-12 baseline has none and falls back to flat 3600s."
+}

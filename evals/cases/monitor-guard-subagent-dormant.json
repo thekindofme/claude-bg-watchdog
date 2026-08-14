@@ -1,0 +1,26 @@
+{
+  "id": "monitor-guard-subagent-dormant",
+  "hook": "monitor-guard",
+  "category": "toplevel-or-dormant-arm",
+  "schema": "real",
+  "env": {},
+  "input": {
+    "session_id": "9c877307-c97b-441f-ae1a-82523d5c7156",
+    "transcript_path": "/Users/dev/.claude/projects/-Users-dev-code-acme-acme-gateway--claude-worktrees-langfuse-dist-rebuild/9c877307-c97b-441f-ae1a-82523d5c7156/subagents/agent-afix-reporting-f1dce76ae1d43f05.jsonl",
+    "cwd": "/Users/dev/code/acme/acme-gateway",
+    "hook_event_name": "PreToolUse",
+    "agent_id": "afix-reporting-f1dce76ae1d43f05",
+    "agent_type": "fix-reporting",
+    "tool_name": "Monitor",
+    "tool_input": {
+      "description": "Wait for acme-reporting build 1425 dev-cdk deploy to reach a terminal state",
+      "timeout_ms": 900000,
+      "persistent": false,
+      "command": "set -a; . ~/.secrets; set +a\nwhile true; do\n  resp=$(curl -s -H \"Authorization: Bearer $BUILDKITE_ACCESS_TOKEN\" \"https://api.buildkite.com/v2/organizations/acme/pipelines/acme-reporting/builds/1425\")\n  state=$(echo \"$resp\" | python3 -c \"import json,sys;print(json.load(sys.stdin)['state'])\")\n  case \"$state\" in passed|failed|canceled|blocked) echo \"$state\"; break;; esac\n  sleep 30\ndone"
+    }
+  },
+  "expect": {
+    "fires": false
+  },
+  "provenance": "Same subagent arm as monitor-guard-subagent-enabled, but with BG_WATCHDOG_MONITOR_GUARD unset. Per hooks/bg-watchdog-monitor-guard.sh's own header note, live re-verification on CLI 2.1.228 (2026-08-12) showed subagent delivery WORKING, so the guard ships dormant — this must allow through by default."
+}

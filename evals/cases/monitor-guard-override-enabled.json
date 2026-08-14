@@ -1,0 +1,28 @@
+{
+  "id": "monitor-guard-override-enabled",
+  "hook": "monitor-guard",
+  "category": "toplevel-or-dormant-arm",
+  "schema": "reconstructed",
+  "env": {
+    "BG_WATCHDOG_MONITOR_GUARD": "1"
+  },
+  "input": {
+    "session_id": "9c877307-c97b-441f-ae1a-82523d5c7156",
+    "transcript_path": "/Users/dev/.claude/projects/-Users-dev-code-acme-acme-gateway--claude-worktrees-langfuse-dist-rebuild/9c877307-c97b-441f-ae1a-82523d5c7156/subagents/agent-afix-reporting-f1dce76ae1d43f05.jsonl",
+    "cwd": "/Users/dev/code/acme/acme-gateway",
+    "hook_event_name": "PreToolUse",
+    "agent_id": "afix-reporting-f1dce76ae1d43f05",
+    "agent_type": "fix-reporting",
+    "tool_name": "Monitor",
+    "tool_input": {
+      "description": "MONITOR_GUARD_OVERRIDE re-verifying subagent delivery per notes/monitor-subagent-delivery.md",
+      "timeout_ms": 90000,
+      "persistent": false,
+      "command": "tail -f /tmp/test.log | grep -E --line-buffered 'PASS|FAIL'"
+    }
+  },
+  "expect": {
+    "fires": false
+  },
+  "provenance": "Same subagent context as monitor-guard-subagent-enabled but with the documented escape hatch token in the description. Command/description shape follows the escape-hatch pattern documented in hooks/bg-watchdog-monitor-guard.sh's own deny message ('include MONITOR_GUARD_OVERRIDE in the monitor description') — no real transcript instance of the override token exists yet (nobody has hit the guard live), so this is reconstructed."
+}

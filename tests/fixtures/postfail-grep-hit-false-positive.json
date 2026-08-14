@@ -1,0 +1,20 @@
+{
+  "session_id": "70127369-8aff-4d1d-b387-151615e7593c",
+  "transcript_path": "/tmp/parent.jsonl",
+  "cwd": "/Users/dev/code/acme",
+  "permission_mode": "default",
+  "tool_use_id": "toolu_01LdHAz5yn5sa3eDpxXeGmjb",
+  "hook_event_name": "PostToolUse",
+  "tool_name": "Bash",
+  "tool_input": {
+    "command": "grep -rl 'Command timed out after' --include='*.jsonl' .",
+    "description": "grep transcripts"
+  },
+  "tool_response": {
+    "stdout": "-Users-dev-code-acme/d387054e.jsonl\n-Users-dev-code-acme/70127369.jsonl\nmatched: Command timed out after 2m 0s\n",
+    "stderr": "",
+    "interrupted": false,
+    "isImage": false
+  },
+  "duration_ms": 880
+}

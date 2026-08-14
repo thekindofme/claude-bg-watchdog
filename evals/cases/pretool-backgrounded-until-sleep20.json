@@ -1,0 +1,22 @@
+{
+  "id": "pretool-backgrounded-until-sleep20",
+  "hook": "pretool",
+  "category": "legit-background-wait",
+  "schema": "real",
+  "input": {
+    "session_id": "00fd45b5-5f30-4b66-915f-e53dd7796fd4",
+    "transcript_path": "/Users/dev/.claude/projects/-Users-dev-code-acme/00fd45b5-5f30-4b66-915f-e53dd7796fd4.jsonl",
+    "cwd": "/Users/dev/code/acme/acme-gateway",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd /Users/dev/code/acme/acme-gateway\nBUILD=18132\nuntil state=$(bk api /pipelines/acme-gateway/builds/$BUILD 2>/dev/null | python3 -c \"import sys,json\\nb=json.load(sys.stdin)\\njobs=b.get('jobs',[])\\ncdk=next((j.get('state') for j in jobs if 'cdk' in (j.get('label') or '').lower() and 'deploy' in (j.get('label') or '').lower()), None)\\nprint(f'{b.get(\\\"state\\\")}|{cdk}')\"); [[ \"$state\" == passed\\|passed || \"$state\" == failed* || \"$state\" == *\"|failed\"* ]]; do sleep 20; done\necho \"FINAL: $state\"",
+      "description": "Wait for ses dev CDK deploy green",
+      "run_in_background": true
+    }
+  },
+  "expect": {
+    "fires": false
+  },
+  "provenance": "~/.claude/projects/-Users-dev-code-acme/00fd45b5-5f30-4b66-915f-e53dd7796fd4.jsonl ~line 1182 (2026-07-22T23:32:54Z): until-loop + sleep 20, but run_in_background:true. Exactly the pattern the hook is supposed to redirect people TO, not block."
+}

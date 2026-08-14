@@ -1,0 +1,19 @@
+{
+  "id": "subagent-stop-fp-self-referential-regex-quote",
+  "hook": "subagent-stop",
+  "category": "quoted-error-text",
+  "schema": "real",
+  "input": {
+    "session_id": "d387054e-5f4a-4162-a360-7012427e42a6",
+    "transcript_path": "/Users/dev/.claude/projects/-Users-dev-code-acme/d387054e-5f4a-4162-a360-7012427e42a6/subagents/agent-ainfra-audit-083646370637c9b9.jsonl",
+    "cwd": "/Users/dev/code/acme",
+    "hook_event_name": "SubagentStop",
+    "agent_id": "ainfra-audit-083646370637c9b9",
+    "agent_type": "infra-audit",
+    "last_assistant_message": "Cross-referencing the 4 shipped hooks against `hooks/*.sh` on disk vs the README's own claims: all 4 exist at the paths the README documents, all 4 are wired in settings.json exactly as the README's wiring table says, and diffing hooks/*.sh against `git show HEAD:hooks/*.sh` shows zero drift from the canonical repo, and all 4 pieces have genuinely fired multiple times since 2026-07-24 through today (2026-08-12) — the fixpack is live and active, not dormant. However, 3 of 4 hooks (`postfail`, `pretool`, `subagent-stop`) share the same design flaw: unanchored substring matching on tool output/messages, which produces confirmed false positives (one reproduced live in this very audit) alongside genuine detections — so raw firing counts overstate true-positive events and the counts given above (27/10/32/21) are upper bounds, not verified-true-positive counts. `rewake`'s time-parser is narrower than its README claim but fails safe (bounded fallback, never fails to eventually rewake)."
+  },
+  "expect": {
+    "fires": false
+  },
+  "provenance": "~/.claude/logs/subagent-deaths.jsonl ts=2026-08-12T09:12:21Z + full text from ~/.claude/projects/-Users-dev-code-acme/d387054e-5f4a-4162-a360-7012427e42a6/subagents/agent-ainfra-audit-083646370637c9b9.jsonl line ~66 (2026-08-12T09:12:21.932Z, 10017 chars). The infra-audit teammate's own report quotes the subagent-stop regex (`session limit|usage limit|API Error|Overloaded|rate.?limit`) as prose while describing this exact vulnerability class — the quote matches its own detector. Self-referential; the audit agent even calls it out: 'one reproduced live in this very audit.'"
+}

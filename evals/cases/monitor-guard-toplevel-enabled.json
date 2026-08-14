@@ -1,0 +1,26 @@
+{
+  "id": "monitor-guard-toplevel-enabled",
+  "hook": "monitor-guard",
+  "category": "toplevel-or-dormant-arm",
+  "schema": "real",
+  "env": {
+    "BG_WATCHDOG_MONITOR_GUARD": "1"
+  },
+  "input": {
+    "session_id": "eb099d49-cb43-410c-a7e8-45910c4b5588",
+    "transcript_path": "/Users/dev/.claude/projects/-Users-dev-code-acme/eb099d49-cb43-410c-a7e8-45910c4b5588.jsonl",
+    "cwd": "/Users/dev/code/acme/acme-gateway",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Monitor",
+    "tool_input": {
+      "command": "while true; do\n  S=$(curl -sf -H \"Authorization: Bearer $(cat ~/.secrets 2>/dev/null | grep BUILDKITE_API_TOKEN | cut -d= -f2)\" \"https://api.buildkite.com/v2/organizations/acme/pipelines/acme-gateway/builds/18424\" 2>/dev/null | python3 -c \"import sys,json;d=json.load(sys.stdin);print(d.get('state',''))\" 2>/dev/null || true)\n  case \"$S\" in\n    passed|failed|canceled|blocked) echo \"build 18424: $S\"; exit 0;;\n    \"\" ) ;;\n  esac\n  sleep 45\ndone",
+      "description": "gateway train build 18424 terminal state",
+      "timeout_ms": 2700000,
+      "persistent": false
+    }
+  },
+  "expect": {
+    "fires": false
+  },
+  "provenance": "monitor_events3.json session eb099d49-cb43-410c-a7e8-45910c4b5588.jsonl (top-level file, no /subagents/ in path), arm_idx 860 at 2026-07-28T05:32:00Z, one of the 11 top-level-file sessions (31/32 top-level arms delivered notifications in the mining window). Guard must allow top-level arms through even when enabled — the whole point of the sidechain-only guard."
+}

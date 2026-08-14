@@ -1,0 +1,13 @@
+{
+  "session_id": "d387054e-5f4a-4162-a360-7012427e42a6",
+  "transcript_path": "/tmp/parent.jsonl",
+  "cwd": "/Users/dev/code/acme",
+  "permission_mode": "default",
+  "hook_event_name": "SubagentStop",
+  "stop_hook_active": false,
+  "agent_id": "ainfra-audit-083646370637c9b9",
+  "agent_type": "infra-audit",
+  "last_assistant_message": "",
+  "background_tasks": [],
+  "session_crons": []
+}

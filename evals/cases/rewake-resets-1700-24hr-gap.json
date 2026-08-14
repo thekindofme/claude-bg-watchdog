@@ -1,0 +1,17 @@
+{
+  "id": "rewake-resets-1700-24hr-gap",
+  "hook": "rewake",
+  "category": "genuine-timeout",
+  "schema": "reconstructed",
+  "input": {
+    "session_id": "d387054e-5f4a-4162-a360-7012427e42a6",
+    "transcript_path": "/Users/dev/.claude/projects/-Users-dev-code-acme/d387054e-5f4a-4162-a360-7012427e42a6.jsonl",
+    "cwd": "/Users/dev/code/acme",
+    "hook_event_name": "Stop",
+    "last_assistant_message": "You've hit your session limit · resets 17:00 (Australia/Melbourne)"
+  },
+  "expect": {
+    "fires": true
+  },
+  "provenance": "Canonical \"You've hit your session limit · resets\" prefix is real (see rewake-resets-5pm-12hr); the 24-hour '17:00' suffix is reconstructed — real occurrences mined are all 12-hour am/pm except a bare 'resets 21:50' fragment (real, but not confirmed inside this exact sentence). VERSION-DEPENDENT CASE: the pre-2026-08-12 baseline hook's regex requires an am/pm suffix, so '17:00' doesn't match at all and it falls back to a flat 3600s; the current hooks/bg-watchdog-rewake.sh added explicit 24-hour support (`t24` pattern, comment 'Absolute 24-hour: \"resets 17:00\"'), so it now parses this correctly. The eval scores both: baseline gets a real number but off from the reference (expected FAIL on old, PASS on new)."
+}

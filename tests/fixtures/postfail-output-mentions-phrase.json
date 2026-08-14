@@ -1,0 +1,20 @@
+{
+  "session_id": "70127369-8aff-4d1d-b387-151615e7593c",
+  "transcript_path": "/tmp/parent.jsonl",
+  "cwd": "/Users/dev/code/acme",
+  "permission_mode": "default",
+  "tool_use_id": "toolu_01LdHAz5yn5sa3eDpxXeGmjb",
+  "hook_event_name": "PostToolUse",
+  "tool_name": "Bash",
+  "tool_input": {
+    "command": "head -20 hooks/bg-watchdog-postfail.sh",
+    "description": "read hook source"
+  },
+  "tool_response": {
+    "stdout": "case \"$out\" in\n  *\"Command timed out after\"*)\n    evt=$(jq -r '.hook_event_name')\n    ;;\nesac",
+    "stderr": "",
+    "interrupted": false,
+    "isImage": false
+  },
+  "duration_ms": 12
+}

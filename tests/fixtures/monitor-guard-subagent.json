@@ -1,0 +1,15 @@
+{
+  "session_id": "d387054e-5f4a-4162-a360-7012427e42a6",
+  "transcript_path": "/Users/dev/.claude/projects/-Users-dev-code-acme/d387054e-5f4a-4162-a360-7012427e42a6/subagents/agent-awp2-monitor-guard-cab29fd69853eb6a.jsonl",
+  "cwd": "/Users/dev/code/acme",
+  "hook_event_name": "PreToolUse",
+  "agent_id": "awp2-monitor-guard-cab29fd69853eb6a",
+  "agent_type": "wp2-monitor-guard",
+  "tool_name": "Monitor",
+  "tool_input": {
+    "command": "tail -f /tmp/test.log | grep -E --line-buffered 'PASS|FAIL'",
+    "description": "test run outcome",
+    "timeout_ms": 600000,
+    "persistent": false
+  }
+}

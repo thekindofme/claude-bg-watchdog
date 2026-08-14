@@ -1,0 +1,29 @@
+{
+  "id": "postfail-genuine-zero-output",
+  "hook": "postfail",
+  "category": "genuine-timeout",
+  "schema": "real",
+  "input": {
+    "session_id": "f41ac662-117b-451f-ad03-bb3eda4900e0",
+    "transcript_path": "/Users/dev/.claude/projects/-Users-dev-code-acme/f41ac662-117b-451f-ad03-bb3eda4900e0.jsonl",
+    "cwd": "/Users/dev/code/acme",
+    "hook_event_name": "PostToolUseFailure",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "agent-browser eval --stdin <<'EOF' 2>&1\n(async () => {\n  const tok = Object.entries(localStorage).find(([k]) => k.includes('accessToken'))?.[1];\n  ...\n})()\nEOF",
+      "description": "read access token from page localStorage"
+    },
+    "error": "Exit code 143\nCommand timed out after 2m 0s",
+    "interrupted": true,
+    "is_error": true
+  },
+  "expect": {
+    "fires": true,
+    "output_contains": [
+      "additionalContext",
+      "Do NOT re-run",
+      "ZERO output"
+    ]
+  },
+  "provenance": "~/.claude/projects/-Users-dev-code-acme/f41ac662-117b-451f-ad03-bb3eda4900e0.jsonl ~line 2610 (toolUseResult = 'Error: Exit code 143\\nCommand timed out after 2m 0s'), preceded at ~line 2603 by an agent-browser eval Bash call. Zero stdout before the kill — the exact 'hang, don't extend' branch the postfail coaching text targets."
+}

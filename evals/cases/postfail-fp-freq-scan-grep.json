@@ -1,0 +1,27 @@
+{
+  "id": "postfail-fp-freq-scan-grep",
+  "hook": "postfail",
+  "category": "false-positive-substring",
+  "schema": "real",
+  "input": {
+    "session_id": "a8129147-a2a2-4a12-926d-acd615c4731e",
+    "transcript_path": "/Users/dev/.claude/projects/-Users-dev-code-acme/a8129147-a2a2-4a12-926d-acd615c4731e.jsonl",
+    "cwd": "/Users/dev/code/acme",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd ~/.claude/projects && for pat in \"Command timed out after\" \"task-notification\" \"run_in_background\" \"killed\" \"Sigkill\\|SIGKILL\" \"exited with code\" \"terminal API error\" \"background task\" \"TaskStop\" \"still running\"; do n=$(find . -name '*.jsonl' -mtime -21 -print0 | xargs -0 grep -l \"$pat\" 2>/dev/null | wc -l); echo \"$pat: $n files\"; done",
+      "description": "Frequency scan of failure signatures across recent transcripts"
+    },
+    "tool_response": {
+      "stdout": "Command timed out after:       53 files\ntask-notification:      107 files\nrun_in_background:      224 files\nkilled:      338 files\nSigkill\\|SIGKILL:       38 files\nexited with code:        7 files\nterminal API error:        1 files\nbackground task:       86 files\nTaskStop:     2169 files\nstill running:      244 files",
+      "stderr": "\nShell cwd was reset to /Users/dev/code/acme",
+      "interrupted": false,
+      "is_error": false
+    }
+  },
+  "expect": {
+    "fires": false
+  },
+  "provenance": "~/.claude/projects/-Users-dev-code-acme/a8129147-a2a2-4a12-926d-acd615c4731e.jsonl ~line 30 (2026-07-24T03:58:28Z): a grep -l frequency count whose stdout literally contains the substring 'Command timed out after:' as a match-count label, is_error:false, no timeout occurred. The SAME session's own teammate-message at ~line 148 independently flags this exact class of pollution: 'this very task's own transcript file ... contains the phrases \"2m 0s\"/\"10m 0s\" literally ... polluting any naive grep.'"
+}

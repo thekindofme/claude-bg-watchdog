@@ -1,0 +1,16 @@
+{
+  "session_id": "70127369-8aff-4d1d-b387-151615e7593c",
+  "transcript_path": "/tmp/parent.jsonl",
+  "cwd": "/Users/dev/code/acme",
+  "permission_mode": "default",
+  "tool_use_id": "toolu_01LdHAz5yn5sa3eDpxXeGmjb",
+  "hook_event_name": "PostToolUseFailure",
+  "tool_name": "Bash",
+  "tool_input": {
+    "command": "aws stepfunctions list-executions ...",
+    "description": "poll backfill"
+  },
+  "error": "Exit code 143\nCommand timed out after 2m 0s\n[t+15s] backfill execs=2 running=1\n[t+30s] backfill execs=2 running=1",
+  "is_interrupt": false,
+  "duration_ms": 120003
+}

@@ -1,0 +1,25 @@
+{
+  "id": "pretool-loop-sleep10-gap",
+  "hook": "pretool",
+  "category": "loop-evasion",
+  "schema": "real",
+  "input": {
+    "session_id": "d889bfca-a0f0-42de-825f-9fc1ed67a025",
+    "transcript_path": "/Users/dev/.claude/projects/-Users-dev-code-acme/d889bfca-a0f0-42de-825f-9fc1ed67a025.jsonl",
+    "cwd": "/Users/dev/code/acme",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "for i in 1 2 3 4 5 6 7 8 9 10 11 12; do sleep 10; if grep -qE 'FINAL|VERDICT|TIMEOUT' /private/tmp/claude-501/-Users-dev-code-acme/d889bfca-a0f0-42de-825f-9fc1ed67a025/tasks/b16sus1j3.output; then break; fi; done; tail -8 /private/tmp/claude-501/-Users-dev-code-acme/d889bfca-a0f0-42de-825f-9fc1ed67a025/tasks/b16sus1j3.output",
+      "description": "Wait up to 2 min for Seedance final verdict"
+    }
+  },
+  "expect": {
+    "fires": true,
+    "output_contains": [
+      "run_in_background",
+      "Monitor"
+    ]
+  },
+  "provenance": "~/.claude/projects/-Users-dev-code-acme/d889bfca-a0f0-42de-825f-9fc1ed67a025.jsonl ~line 474 (2026-07-30T05:30:58.972Z): a 12x sleep-10 foreground poll (up to 2 minutes blocked). KNOWN OLD-HOOK GAP: the shipped pretool regex only blocks sleep>=15s per iteration (\\bsleep[[:space:]]+(1[5-9]|[2-9][0-9]|[0-9]{3,})\\b), so this real 12x2min-worth-of-blocking loop was NOT caught — sleep 10 is under the threshold. Included to prove the baseline scoreboard shows a false negative here."
+}

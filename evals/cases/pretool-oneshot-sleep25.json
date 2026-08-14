@@ -1,0 +1,20 @@
+{
+  "id": "pretool-oneshot-sleep25",
+  "hook": "pretool",
+  "category": "legit-background-wait",
+  "schema": "real",
+  "input": {
+    "session_id": "81dea149-f1a4-4848-9541-99c447163c5e",
+    "transcript_path": "/Users/dev/.claude/projects/-Users-dev-code-acme/81dea149-f1a4-4848-9541-99c447163c5e.jsonl",
+    "cwd": "/Users/dev/code/acme/docs",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "sleep 25; gh pr checks 7 --repo acme/docs 2>&1 | head; echo \"--- state:\"; gh pr view 7 --repo acme/docs --json mergeable,mergeStateStatus,reviewDecision --jq '{mergeable:.mergeable,state:.mergeStateStatus,review:.reviewDecision}'"
+    }
+  },
+  "expect": {
+    "fires": false
+  },
+  "provenance": "~/.claude/projects/-Users-dev-code-acme/81dea149-f1a4-4848-9541-99c447163c5e.jsonl ~line 625: a single trailing 'sleep 25' before a one-shot gh check, no while/until/for. Legit short foreground wait, not a poll loop — must pass through."
+}

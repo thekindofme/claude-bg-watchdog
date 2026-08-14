@@ -1,0 +1,15 @@
+{
+  "session_id": "d387054e-5f4a-4162-a360-7012427e42a6",
+  "transcript_path": "/Users/dev/.claude/projects/-Users-dev-code-acme/d387054e-5f4a-4162-a360-7012427e42a6/subagents/agent-ae2e-verify-f3ba2159f19da324.jsonl",
+  "cwd": "/Users/dev/code/acme",
+  "hook_event_name": "PreToolUse",
+  "agent_id": "",
+  "agent_type": "",
+  "tool_name": "Monitor",
+  "tool_input": {
+    "command": "while true; do gh pr checks 5702 --json bucket; sleep 30; done",
+    "description": "PR checks",
+    "timeout_ms": 600000,
+    "persistent": false
+  }
+}
