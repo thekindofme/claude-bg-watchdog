@@ -1,0 +1,10 @@
+{
+  "name": "bg-watchdog",
+  "version": "2.0.0",
+  "description": "Hooks that catch background tasks, subagents and monitors that die, time out or finish without the session acting on them",
+  "author": {
+    "name": "Yasith Fernando"
+  },
+  "repository": "https://github.com/thekindofme/claude-bg-watchdog",
+  "license": "MIT"
+}

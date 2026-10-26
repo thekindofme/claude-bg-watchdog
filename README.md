@@ -9,7 +9,27 @@ Canonical source; the **live** copies deploy to `~/.claude` via `./install.sh`.
 Built 2026-07-24 from a 5-agent audit of 21 days of session transcripts
 (~2,200 `.jsonl` files); re-audited 2026-08-12 (see "08-12 re-audit" below).
 
-## Install / uninstall
+## Install
+
+As a Claude Code plugin (recommended):
+
+```
+/plugin marketplace add thekindofme/claude-plugins
+/plugin install bg-watchdog@thekindofme-plugins
+```
+
+The plugin wires all 6 hooks and loads `rules/background-work.md` into each
+session through a SessionStart hook. Plugins can't set environment variables,
+so add the longer Bash timeouts to `~/.claude/settings.json` yourself:
+
+```json
+{ "env": { "BASH_DEFAULT_TIMEOUT_MS": "300000", "BASH_MAX_TIMEOUT_MS": "1800000" } }
+```
+
+State and logs go to `~/.claude/logs/`. Uninstall with
+`/plugin uninstall bg-watchdog@thekindofme-plugins`.
+
+### Manual install
 
 ```sh
 ./install.sh          # copies all 6 hooks + rules/background-work.md into ~/.claude, prints settings diff hints
@@ -23,6 +43,9 @@ removable: delete its entry from `settings.json` and `rm` the matching
 file-to-hook map). `rules/background-work.md` can be removed on its own
 without touching any hook. Env vars (`BASH_DEFAULT_TIMEOUT_MS`,
 `BASH_MAX_TIMEOUT_MS`) revert by deleting the `env` block entries.
+
+Don't use both: if you installed manually, remove those `settings.json`
+entries before installing the plugin, or every hook runs twice.
 
 ## The 6 hooks
 

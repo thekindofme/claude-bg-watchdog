@@ -1,6 +1,6 @@
 # Background work discipline
 
-From 21-day transcript audit (2026-07-24): 102 foreground Bash timeouts (~6.2h blocked, 48% hand-rolled sleep-loops, 73% on the bare default timeout); 18% of background-task failures were subagents dying on usage limits and stalling the session until manually resumed; repeated silent poller deaths. Watchdog hooks (`~/.claude/hooks/bg-watchdog-*.sh`) enforce some of this; the rest is on you.
+From 21-day transcript audit (2026-07-24): 102 foreground Bash timeouts (~6.2h blocked, 48% hand-rolled sleep-loops, 73% on the bare default timeout); 18% of background-task failures were subagents dying on usage limits and stalling the session until manually resumed; repeated silent poller deaths. Watchdog hooks (`bg-watchdog-*.sh`, from the bg-watchdog plugin or `~/.claude/hooks/`) enforce some of this; the rest is on you.
 
 - **Never foreground-wait on async work.** No `while/until/for … sleep` polls in foreground Bash for builds, deploys, Step Functions, generation jobs, or subagent output files. Use `run_in_background: true` (single completion notification) or the Monitor tool (streaming; `persistent: true` for session-length watches). A PreToolUse hook blocks loops whose total in-loop wait is `sleep ≥15s`.
 - **Size foreground timeouts explicitly.** Known-long commands (CloudWatch multi-group scans, cdk/sls, big builds, chrome --headless) get an explicit `timeout` sized to the job. After a timeout with **zero output**, treat it as a hang: kill the process; do not simply re-run with a longer timeout.
