@@ -224,5 +224,5 @@ problems were found, not the same one reported twice.
    the 1-hour ceiling (the longest asyncRewake sleep empirically confirmed
    so far, out of a 2h `VIGIL_MAX`) still stands.
 
-Raw audit evidence: `analysis/data/` (deduped failure/kill lists, timeout
-events, orphan results). Extraction scripts: `analysis/scripts/`.
+Extraction scripts: `analysis/scripts/`. The raw audit outputs they produced
+came from private session transcripts and are not published.

@@ -13,12 +13,12 @@
     "ORPHAN_SENTINEL_VIGIL_MAX": "2"
   },
   "input": {
-    "session_id": "dabfb380-eb34-47c4-8ba8-44112fd8afbc",
-    "transcript_path": "/Users/dev/code/claude-bg-watchdog/evals/fixtures/dabfb380-handled-notification.jsonl",
+    "session_id": "00000000-0000-4000-8000-000000000001",
+    "transcript_path": "fixtures/synthetic-handled-notification.jsonl",
     "hook_event_name": "Stop"
   },
   "expect": {
     "fires": false
   },
-  "provenance": "evals/fixtures/dabfb380-handled-notification.jsonl is a byte-exact truncation (first 1073 lines) of the same real transcript, cut right after the assistant's Agent-spawn reaction at 2026-08-11T06:29:27.023Z. It contains the completed-task notification at 06:27:56Z (task_id ab79367ab7dc5a62d, '/code-review the full branch diff… finished') AND the assistant's own reaction 46s later at 06:28:42, so by this Stop both that notification and the earlier 05:08:32 stall have real subsequent assistant activity — exactly what should read as handled and produce no rewake."
+  "provenance": "fixtures/synthetic-handled-notification.jsonl is the last 300 records of the real incident transcript, rebuilt by tools/synth_transcript.py (structure kept, all text and ids replaced). See README: Provenance notes."
 }

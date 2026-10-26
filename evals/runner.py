@@ -181,7 +181,14 @@ def evaluate_case(case, hooks_dir, tmp_root):
     if "raw_input" in case:
         stdin_bytes = case["raw_input"].encode("utf-8")
     else:
-        stdin_bytes = json.dumps(case["input"]).encode("utf-8")
+        hook_input = dict(case["input"])
+        # A relative transcript_path is resolved against evals/, so cases run
+        # from any checkout location.
+        tp = hook_input.get("transcript_path")
+        if tp and not os.path.isabs(tp):
+            hook_input["transcript_path"] = os.path.join(
+                os.path.dirname(os.path.abspath(__file__)), tp)
+        stdin_bytes = json.dumps(hook_input).encode("utf-8")
 
     script_to_run = hook_path
     timeout_s = DEFAULT_TIMEOUT_S

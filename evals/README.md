@@ -212,11 +212,15 @@ current state.
 - **`orphan-sentinel-unhandled-stall`** / **`-handled-notification`**: the
   hook-input *envelope* (which fields Claude Code sends) had to be
   reconstructed before the hook landed on disk, then corrected against the
-  real hook's own `jq` once it did. The *content* is fully real: both cases
-  point `transcript_path` at byte-exact truncations of the actual incident
-  transcript (`fixtures/dabfb380-*.jsonl`, cut at the precise line the
-  simulated Stop event represents) — this is in fact one of the two incidents
-  the shipped hook's own header comment cites as its motivating case.
+  real hook's own `jq` once it did. The *event structure* is real: both
+  cases replay the last 300 records of the actual incident transcript (one of
+  the two incidents the hook's header comment cites as its motivating case),
+  cut at the line the simulated Stop event represents. For privacy the
+  published fixtures (`fixtures/synthetic-*.jsonl`) are rebuilt by
+  `tools/synth_transcript.py`: it keeps record types, timestamps, queue
+  operations, notification tags and tool_use names/ids, swaps every id for a
+  stable fake, and replaces all text with filler. The hook reaches the same
+  decision on the synthetic files as on the originals.
 
 Every other case (21 of 26) is a verbatim or near-verbatim real payload with a
 transcript path + line number in its `provenance` field.
